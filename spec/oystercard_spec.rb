@@ -23,7 +23,9 @@ describe Oystercard do
 
   describe "deduct" do 
     it "deducts given fare from balance" do
-      expect { subject.deduct(3) }.to change(subject, :balance).to eq(-3)
+
+      
+      expect { subject.send(:deduct, 3) }.to change(subject, :balance).to eq(-3)
     end 
   end
 
@@ -41,7 +43,7 @@ describe Oystercard do
     end 
 
     it "raises error when card balance is below min limit" do
-      expect { subject.touch_in }.to raise_error("Below minimum limit of £#{Oystercard::MIN_BALANCE}")
+      expect { subject.touch_in }.to raise_error("Below minimum limit of £#{Oystercard::MIN_FARE}")
     end 
   end 
 
@@ -51,6 +53,12 @@ describe Oystercard do
       subject.touch_in
       subject.touch_out
       expect(subject).not_to be_in_journey
+    end 
+
+    it "Deducts min fare when touch_out called" do
+      subject.top_up(2)
+      subject.touch_in
+      expect { subject.touch_out }.to change{subject.balance}.by(-Oystercard::MIN_FARE)
     end 
   end 
 
