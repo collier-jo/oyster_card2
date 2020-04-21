@@ -35,7 +35,17 @@ describe Oystercard do
 
   describe "touch_in" do 
     it "Updates in_jounrey to true when touch_in called" do
-      expect { subject.touch_in }.to change(subject, :in_journey?).to eq(true)
+      subject.touch_in
+      expect(subject).to be_in_journey
     end 
   end 
+
+  describe "touch_out" do 
+    it "Updates in_jounrey to false when touch_out called" do
+      subject.touch_in
+      subject.touch_out
+      expect(subject).not_to be_in_journey
+    end 
+  end 
+
 end
