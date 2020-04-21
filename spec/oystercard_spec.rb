@@ -26,4 +26,16 @@ describe Oystercard do
       expect { subject.deduct(3) }.to change(subject, :balance).to eq(-3)
     end 
   end
+
+  describe "in_journey?" do
+    it "returns false when instance is created" do
+      expect(subject.in_journey?).to eq(false)
+    end 
+  end
+
+  describe "touch_in" do 
+    it "Updates in_jounrey to true when touch_in called" do
+      expect { subject.touch_in }.to change(subject, :in_journey?).to eq(true)
+    end 
+  end 
 end
