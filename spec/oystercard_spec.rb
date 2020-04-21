@@ -9,5 +9,11 @@ describe Oystercard do
     end
 
   end
-  
+
+  describe 'topup' do
+
+    it 'adds topup amount to balance' do
+      expect { subject.topup(3) }.to change(subject, :balance).to eq(3)
+    end
+  end
 end

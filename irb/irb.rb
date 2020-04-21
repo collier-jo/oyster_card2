@@ -1,5 +1,6 @@
 require './lib/oystercard'
 
 card = Oystercard.new
-card.balance
-card.top_up(3)
+card.topup(3)
+
+puts card.balance
