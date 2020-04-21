@@ -23,8 +23,6 @@ describe Oystercard do
 
   describe "deduct" do 
     it "deducts given fare from balance" do
-
-      
       expect { subject.send(:deduct, 3) }.to change(subject, :balance).to eq(-3)
     end 
   end

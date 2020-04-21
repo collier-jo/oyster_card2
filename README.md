@@ -36,6 +36,7 @@ Domain Model::
              | touch_in - updates @in_jounrey? true
                         - throws error when below min balance
              | touch_out - updates to false
+                        - changes balance by min fare 
              | constant = min balance 
 
 
