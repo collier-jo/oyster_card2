@@ -60,4 +60,11 @@ describe Oystercard do
     end 
   end 
 
+  describe "#entry_station" do 
+    it "is nil when card is created" do 
+      subject.top_up(2)
+      subject.touch_in
+      expect(subject.entry_station).to eq(true)
+    end 
+  end 
 end
