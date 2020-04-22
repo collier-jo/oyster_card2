@@ -2,6 +2,8 @@ require 'oystercard'
 
 describe Oystercard do
 
+  let(:station) { "Kings Cross "}
+
   describe 'balance' do
   
     it 'balance has 0' do
@@ -29,42 +31,54 @@ describe Oystercard do
 
   describe "in_journey?" do
     it "returns false when instance is created" do
-      expect(subject.in_journey?).to eq(false)
+      expect(subject.in_journey?).to eq(nil)
     end 
   end
 
   describe "touch_in" do 
     it "Updates in_jounrey to true when touch_in called" do
       subject.top_up(2)
-      subject.touch_in
+      subject.touch_in(station)
       expect(subject).to be_in_journey
     end 
 
     it "raises error when card balance is below min limit" do
-      expect { subject.touch_in }.to raise_error("Below minimum limit of £#{Oystercard::MIN_FARE}")
+      expect { subject.touch_in(station) }.to raise_error("Below minimum limit of £#{Oystercard::MIN_FARE}")
+    end 
+
+    it "Updates entry_station to station argument" do 
+      subject.top_up(3)
+      subject.touch_in(station)
+      expect(subject.entry_station).to eq(station)
     end 
   end 
 
   describe "touch_out" do 
     it "Updates in_jounrey to false when touch_out called" do
       subject.top_up(2)
-      subject.touch_in
+      subject.touch_in(station)
       subject.touch_out
       expect(subject).not_to be_in_journey
     end 
 
     it "Deducts min fare when touch_out called" do
       subject.top_up(2)
-      subject.touch_in
+      subject.touch_in(station)
       expect { subject.touch_out }.to change{subject.balance}.by(-Oystercard::MIN_FARE)
+    end 
+
+    it "return entry_station instance to nil" do 
+      subject.top_up(2)
+      subject.touch_in(station)
+      subject.touch_out
+      expect(subject.entry_station).to eq(false)
     end 
   end 
 
   describe "#entry_station" do 
-    it "is nil when card is created" do 
-      subject.top_up(2)
-      subject.touch_in
-      expect(subject.entry_station).to eq(true)
+    it "is nil when card created" do 
+      expect(subject.entry_station).to eq(nil)
     end 
   end 
+
 end

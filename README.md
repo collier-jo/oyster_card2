@@ -25,6 +25,10 @@ In order to pay for my journey
 As a customer
 When my journey is complete, I need the correct amount deducted from my card
 
+In order to pay for my journey
+As a customer
+I need to know where I've travelled from
+
 Domain Model::
 
 | Object     | Message |
@@ -33,14 +37,35 @@ Domain Model::
 |            | top_up(amount) += balance
              | deduct(fare) -= balance 
              | in_jouney? = false 
+                        - 
              | touch_in - updates @in_jounrey? true
                         - throws error when below min balance
+                        - updates the entry tostation name 
              | touch_out - updates to false
                         - changes balance by min fare 
+                        - returns entry to nil 
              | constant = min balance 
+             | instance/ attr - entry_station starts as nil 
 
 
 #test
-check in_jounrey is false when new instance 
-touch_in - eq (true)
-touch_out - eq(false )
+
+- `top_up` should raise an error when the balance goes over 90
+
+- in_journey?
+  - when created its false
+
+- touch_in
+  - changes in_journey to true
+  - raises an error if already on a journey
+  - changes entry_station  to true 
+
+- touch_out
+  - changes in_journey to be false
+  - raises an error if not on a journey
+  - changes to nil 
+
+- entry_station = nil 
+
+
+
