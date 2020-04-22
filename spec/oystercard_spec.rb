@@ -4,6 +4,7 @@ describe Oystercard do
 
   let(:entry_station) { double :station }
   let(:exit_station) { double :station }
+  let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
 
   describe 'balance' do
   
@@ -52,12 +53,6 @@ describe Oystercard do
       subject.touch_in(entry_station)
       expect(subject.entry_station).to eq(entry_station)
     end 
-
-    it "Pushes entry_station into Journeys instanse array" do 
-      subject.top_up(3)
-      subject.touch_in(entry_station)
-      expect(subject.journeys).to include(entry_station)
-    end 
   end 
 
   describe "touch_out" do 
@@ -83,13 +78,6 @@ describe Oystercard do
       subject.touch_out(exit_station)
       expect(subject.entry_station).to eq(false)
     end 
-
-    it "Pushes exit_station into Journeys instanse array" do 
-      subject.top_up(3)
-      subject.touch_in(entry_station)
-      subject.touch_out(exit_station)
-      expect(subject.journeys).to include(entry_station, exit_station)
-    end 
   end 
 
   describe "#entry_station" do 
@@ -98,9 +86,16 @@ describe Oystercard do
     end 
   end 
 
-  describe "#journeys" do
+  describe "#journeys array" do
     it "starts off with no journeys" do 
      expect(subject.journeys).to be_empty
     end 
-  end 
+
+    it "Adds hash to journeys array" do 
+      subject.top_up(3)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journeys).to include(journey)
+    end 
+  end  
 end 
