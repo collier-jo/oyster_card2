@@ -29,6 +29,14 @@ In order to pay for my journey
 As a customer
 I need to know where I've travelled from
 
+
+In order to know where I have been
+As a customer
+I want to see all my previous trips
+
+
+
+
 Domain Model::
 
 | Object     | Message |
@@ -40,13 +48,32 @@ Domain Model::
                         - 
              | touch_in - updates @in_jounrey? true
                         - throws error when below min balance
-                        - updates the entry tostation name 
+                        - updates the entry tostation name  
+                        - shove entry to journey            
              | touch_out - updates to false
                         - changes balance by min fare 
                         - returns entry to nil 
+                        - shove exit into journey 
              | constant = min balance 
              | instance/ attr - entry_station starts as nil 
+             | journey method:
+                        - @journey << @entry
+                        - @jounrey << @exit
+                        - @journey.each { |record| journey << {'entry' => @entry_station, "exit" => @exit} }
 
+
+
+
+@journey = []
+
+
+
+
+
+array_of_hashes = []
+array_of_arrays.each { |record| array_of_hashes << {'name' => record[0], 'number' => record[1].to_i, 'email' => record[2]} }
+
+p array_of_hashes
 
 #test
 

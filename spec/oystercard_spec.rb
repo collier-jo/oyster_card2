@@ -2,7 +2,8 @@ require 'oystercard'
 
 describe Oystercard do
 
-  let(:station) { "Kings Cross "}
+  let(:entry_station) { double :station }
+  let(:exit_station) { double :station }
 
   describe 'balance' do
   
@@ -38,40 +39,56 @@ describe Oystercard do
   describe "touch_in" do 
     it "Updates in_jounrey to true when touch_in called" do
       subject.top_up(2)
-      subject.touch_in(station)
+      subject.touch_in(entry_station)
       expect(subject).to be_in_journey
     end 
 
     it "raises error when card balance is below min limit" do
-      expect { subject.touch_in(station) }.to raise_error("Below minimum limit of £#{Oystercard::MIN_FARE}")
+      expect { subject.touch_in(entry_station) }.to raise_error("Below minimum limit of £#{Oystercard::MIN_FARE}")
     end 
 
     it "Updates entry_station to station argument" do 
       subject.top_up(3)
-      subject.touch_in(station)
-      expect(subject.entry_station).to eq(station)
+      subject.touch_in(entry_station)
+      expect(subject.entry_station).to eq(entry_station)
+    end 
+
+    it "Pushes entry_station into Journeys instanse array" do 
+      subject.top_up(3)
+      subject.touch_in(entry_station)
+      expect(subject.journeys).to include(entry_station)
     end 
   end 
 
   describe "touch_out" do 
+
+    it {is_expected.to respond_to(:touch_out).with(1).argument}
+
     it "Updates in_jounrey to false when touch_out called" do
       subject.top_up(2)
-      subject.touch_in(station)
-      subject.touch_out
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
       expect(subject).not_to be_in_journey
     end 
 
     it "Deducts min fare when touch_out called" do
       subject.top_up(2)
-      subject.touch_in(station)
-      expect { subject.touch_out }.to change{subject.balance}.by(-Oystercard::MIN_FARE)
+      subject.touch_in(entry_station)
+      expect { subject.touch_out(exit_station) }.to change{subject.balance}.by(-Oystercard::MIN_FARE)
     end 
 
     it "return entry_station instance to nil" do 
       subject.top_up(2)
-      subject.touch_in(station)
-      subject.touch_out
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
       expect(subject.entry_station).to eq(false)
+    end 
+
+    it "Pushes exit_station into Journeys instanse array" do 
+      subject.top_up(3)
+      subject.touch_in(entry_station)
+      subject.touch_out(exit_station)
+      expect(subject.journeys).to include(entry_station, exit_station)
     end 
   end 
 
@@ -81,4 +98,9 @@ describe Oystercard do
     end 
   end 
 
-end
+  describe "#journeys" do
+    it "starts off with no journeys" do 
+     expect(subject.journeys).to be_empty
+    end 
+  end 
+end 
