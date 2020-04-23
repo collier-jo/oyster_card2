@@ -1,4 +1,4 @@
-=begin
+
 require './lib/oystercard'
 
 
@@ -6,9 +6,14 @@ card = Oystercard.new
 card.top_up(6)
 card.touch_in("station")
 card.touch_out("station")
-=end 
+card.journeys 
 
 
+
+
+
+
+=begin
 current_journey = {}
 journey = []
 
@@ -23,3 +28,4 @@ current_journey[:exit] = "goodbye"
 journey << current_journey 
 
 puts journey
+=end 

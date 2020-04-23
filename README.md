@@ -36,6 +36,12 @@ I want to see all my previous trips
 
 
 
+In order to know how far I have travelled
+As a customer
+I want to know what zone a station is in
+
+
+
 
 Domain Model::
 
@@ -61,20 +67,11 @@ Domain Model::
                         - @jounrey << @exit
                         - @journey.each { |record| journey << {'entry' => @entry_station, "exit" => @exit} }
 
+|Station     | Initialize = (name, zone)
+                        - @name = name 
+                        - @zone = zone 
 
-
-
-@journey = []
-
-
-
-
-
-array_of_hashes = []
-array_of_arrays.each { |record| array_of_hashes << {'name' => record[0], 'number' => record[1].to_i, 'email' => record[2]} }
-
-p array_of_hashes
-
+                    
 #test
 
 - `top_up` should raise an error when the balance goes over 90
@@ -94,5 +91,5 @@ p array_of_hashes
 
 - entry_station = nil 
 
-
+- When a new station is being created 
 
