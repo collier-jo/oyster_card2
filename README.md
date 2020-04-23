@@ -49,27 +49,45 @@ Domain Model::
 | ---        | ---   |
 | Oystercard | balance |
 |            | top_up(amount) += balance
-             | deduct(fare) -= balance 
-             | in_jouney? = false 
+             | deduct(JOUNREY NEW INSTANCE??? ) -= balance 
+             | * in_jouney? = false 
                         - 
              | touch_in - updates @in_jounrey? true
                         - throws error when below min balance
-                        - updates the entry tostation name  
-                        - shove entry to journey            
+                        (card.touch_in 
+                          jouney.new.update_entry)
+                        /*- updates the entry to station name  
+                        *- shove entry to journey     
+                        * - INTERACT        
              | touch_out - updates to false
                         - changes balance by min fare 
-                        - returns entry to nil 
-                        - shove exit into journey 
+                        /*- returns entry to nil 
+                        *- shove exit into journey 
+                        * - INTERACT 
              | constant = min balance 
-             | instance/ attr - entry_station starts as nil 
-             | journey method:
-                        - @journey << @entry
-                        - @jounrey << @exit
-                        - @journey.each { |record| journey << {'entry' => @entry_station, "exit" => @exit} }
+             | *instance/ attr - entry_station starts as nil 
+             | *store_hash_array
+             | *in_journey? 
+
 
 |Station     | Initialize = (name, zone)
                         - @name = name 
                         - @zone = zone 
+
+
+
+|Jounrey     | starting 
+             | finishing
+             | Fare 
+                  - Calculate the fare 
+                  - Min fare = 1 (every touchin and out = 1)
+                  - Penalty = 6   
+             | returning if jounrey is complete? (Boolean of true of false)
+
+
+              The #fare method should return the minimum fare (for the moment), or the penalty fare of 6 if there was either no entry station or no exit station.
+
+
 
                     
 #test
