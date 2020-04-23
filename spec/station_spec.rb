@@ -1,16 +1,15 @@
-require './lib/station.rb'
-
+require 'station'                                           
 describe Station do
 
-  it "expects name to be created with new subject" do 
-    station1 = Station.new("KX", "Zone1")
-    expect(station1.name).to eq("KX")
-  end 
+  subject(:station) { described_class.new(name, zone) }
+  let(:name) { double :station }
+  let(:zone) { double :station }
 
-  it "expects zone to be created with new subject" do 
-    station1 = Station.new("KX", "Zone1")
-    expect(station1.zone).to eq("Zone1")
-  end 
+  it 'knows its name' do                      
+    expect(subject.name).to eq(name)              
+  end                                                   
 
-end 
-
+  it 'knows its zone' do                                                     
+    expect(subject.zone).to eq(zone)                                 
+  end
+end
