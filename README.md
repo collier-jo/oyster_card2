@@ -50,18 +50,24 @@ Domain Model::
 | Oystercard | balance |
 |            | top_up(amount) += balance
              | deduct(JOUNREY NEW INSTANCE??? ) -= balance 
+                @jounrey = Journey.new
              | * in_jouney? = false 
                         - 
-             | touch_in - updates @in_jounrey? true
+             | touch_in - (entrystation)
+                                                                     *- updates @in_jounrey? true
                         - throws error when below min balance
-                        (card.touch_in 
-                          jouney.new.update_entry)
-                        /*- updates the entry to station name  
-                        *- shove entry to journey     
-                        * - INTERACT        
+                       
+                          
+                                                                    /*- updates the entry to station name  
+                                                                     *- shove entry to journey 
+                        
+                        * - INTERACT
+                                - @jounrey.start(KX = Station.new("KX", 1))
+                                - calls start method in journey(entry_station)
+                                
              | touch_out - updates to false
                         - changes balance by min fare 
-                        /*- returns entry to nil 
+                        /*- returns entriry to nil 
                         *- shove exit into journey 
                         * - INTERACT 
              | constant = min balance 
@@ -76,7 +82,18 @@ Domain Model::
 
 
 
-|Jounrey     | starting 
+|Jounrey     | @entry_Station
+               @journey = {}
+               @in_journey = true 
+
+
+                starting (entry_stations )
+                        - @entrysStation = entry station 
+                        - @journey[entry] = @entry
+                        
+                        
+                        
+                        
              | finishing
              | Fare 
                   - Calculate the fare 
