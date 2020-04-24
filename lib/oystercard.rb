@@ -24,6 +24,7 @@ class Oystercard
   end 
 
   def touch_in(entry_station)
+    #INTERACT 
     raise "Below minimum limit of £#{Oystercard::MIN_FARE}" if @balance < MIN_FARE 
     @entry_station = entry_station  
     @journey[:entry_station] = @entry_station

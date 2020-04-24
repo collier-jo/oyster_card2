@@ -73,8 +73,8 @@ Domain Model::
                         * - INTERACT 
 
              | constant = min balance 
-             | *instance/ attr - entry_station starts as nil 
-             | *store_hash_array
+             |                          *instance/ attr - entry_station starts as nil 
+             |                          *store_hash_array
              | *in_journey? 
 
 
@@ -82,6 +82,8 @@ Domain Model::
                         - @name = name 
                         - @zone = zone 
 
+ @entry_station && (@exit_station == false) ? @in_journey = true : @in_journey = false
+    end
 
 
 |Jounrey     | @entry_Station
@@ -95,15 +97,15 @@ Domain Model::
                         - @entrysStation = entry station 
                         - @journey[entry] = @entry       
              | finishing
-                        - changes @ exit to = exit /
-                        - change @ entry = false /
-                        - shove exit into hash
-                        - shove hash into array 
+                                        - changes @ exit to = exit /
+                                        - change @ entry = false /
+                                        - shove exit into hash / 
+                                        - shove hash into array /
              | Fare 
                   - Calculate the fare 
                   - Min fare = 1 (every touchin and out = 1)
                   - Penalty = 6   
-             | returning if jounrey is complete? (Boolean of true of false)
+             |                              returning if jounrey is complete? (Boolean of true of false)
 
 
               The #fare method should return the minimum fare (for the moment), or the penalty fare of 6 if there was either no entry station or no exit station.
