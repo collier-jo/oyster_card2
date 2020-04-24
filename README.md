@@ -67,9 +67,11 @@ Domain Model::
                                 
              | touch_out - updates to false
                         - changes balance by min fare 
-                        /*- returns entriry to nil 
-                        *- shove exit into journey 
+                                                      /*- returns entry to nil 
+                                                        * - shove exit into journey{}
+                                                        * - shove the has into array 
                         * - INTERACT 
+
              | constant = min balance 
              | *instance/ attr - entry_station starts as nil 
              | *store_hash_array
@@ -84,17 +86,19 @@ Domain Model::
 
 |Jounrey     | @entry_Station
                @journey = {}
-               @in_journey = true 
+               @in_journey = true
+               @exit_station = false  
+               @journeys = []
 
 
                 starting (entry_stations )
                         - @entrysStation = entry station 
-                        - @journey[entry] = @entry
-                        
-                        
-                        
-                        
+                        - @journey[entry] = @entry       
              | finishing
+                        - changes @ exit to = exit /
+                        - change @ entry = false /
+                        - shove exit into hash
+                        - shove hash into array 
              | Fare 
                   - Calculate the fare 
                   - Min fare = 1 (every touchin and out = 1)

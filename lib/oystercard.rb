@@ -1,3 +1,5 @@
+require 'journey'
+
 class Oystercard
   attr_reader :balance, :entry_station, :exit_station, :journeys, :journey
 
@@ -31,9 +33,9 @@ class Oystercard
     deduct(MIN_FARE)
     @exit_station = exit_station
     @journey[:exit_station] = @exit_station
+    deduct(@journey.fare)
     store_hash_array
     @entry_station = false 
-    
   end
 
  
